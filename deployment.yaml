@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-helloserver
+  labels:
+    app: helloserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: helloserver
+  template:
+    metadata:
+      labels:
+        app: helloserver
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: helloserver
+        image: httpd
+        ports:
+        - containerPort: 80
